@@ -55,9 +55,11 @@ if (!fs.existsSync(dataPath('settings'))) {
     logo: '/img/logo.svg',
     sessionSecret: crypto.randomBytes(32).toString('hex'),
     admin: {
-      username: 'admin',
-      // Varsayılan şifre: hipokrat2026 (ilk girişten sonra panelden değiştirin)
-      passwordHash: bcrypt.hashSync('hipokrat2026', 10)
+      username: process.env.ADMIN_USERNAME || 'admin',
+      // Varsayılan şifre ADMIN_PASSWORD ortam değişkeniyle belirlenebilir
+      // (Render gibi her deploy'da verilerin sıfırlandığı ortamlar için).
+      // Yoksa: hipokrat2026 — ilk girişten sonra panelden değiştirin.
+      passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'hipokrat2026', 10)
     }
   });
 }
