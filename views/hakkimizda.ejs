@@ -1,0 +1,44 @@
+<%- include('partials/header', { pageTitle: about.title || 'Hakkımızda' }) %>
+
+  <div class="sayfa-basligi">
+    <div class="container">
+      <h1><%= about.title || 'Hakkımızda' %></h1>
+      <div class="cizgi"></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container about-grid">
+      <div>
+        <% (about.content || '').split(/\n\s*\n/).forEach(function (p) { %>
+          <p><%= p %></p>
+        <% }) %>
+      </div>
+      <div>
+        <% if (about.mission) { %>
+        <div class="mv-box">
+          <h4>🎯 MİSYONUMUZ</h4>
+          <p><%= about.mission %></p>
+        </div>
+        <% } %>
+        <% if (about.vision) { %>
+        <div class="mv-box">
+          <h4>🌟 VİZYONUMUZ</h4>
+          <p><%= about.vision %></p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div>
+        <h2>Sorularınız mı var?</h2>
+        <p>Size yardımcı olmaktan mutluluk duyarız.</p>
+      </div>
+      <a href="/iletisim" class="btn btn-dark">Bize Ulaşın</a>
+    </div>
+  </section>
+
+<%- include('partials/footer') %>

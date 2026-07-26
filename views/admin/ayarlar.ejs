@@ -1,0 +1,88 @@
+<%- include('partials/ust', { pageTitle: 'Sistem Ayarları' }) %>
+
+<div class="icerik-baslik">
+  <h1>⚙️ Sistem Ayarları</h1>
+</div>
+
+<% if (saved) { %><div class="uyari basari">✅ Ayarlar kaydedildi.</div><% } %>
+<% if (error) { %><div class="uyari hata">⚠️ <%= error %></div><% } %>
+
+<form method="POST" action="/admin/ayarlar" enctype="multipart/form-data">
+  <div class="kutu">
+    <h2>Site Bilgileri</h2>
+    <div class="form-2li">
+      <div>
+        <label for="siteTitle">Site Adı</label>
+        <input type="text" id="siteTitle" name="siteTitle" value="<%= settings.siteTitle %>" maxlength="100">
+      </div>
+      <div>
+        <label for="slogan">Slogan</label>
+        <input type="text" id="slogan" name="slogan" value="<%= settings.slogan %>" maxlength="150">
+      </div>
+    </div>
+    <label for="heroText">Ana Sayfa Tanıtım Metni</label>
+    <textarea id="heroText" name="heroText" rows="3"><%= settings.heroText %></textarea>
+    <label>Mevcut Logo</label>
+    <div class="logo-onizleme"><img src="<%= settings.logo %>" alt="Logo"></div>
+    <label for="logo">Yeni Logo Yükle (isteğe bağlı)</label>
+    <p class="ipucu">PNG, JPG, WEBP veya SVG. En fazla 5 MB.</p>
+    <input type="file" id="logo" name="logo" accept="image/*">
+  </div>
+
+  <div class="kutu">
+    <h2>İletişim Bilgileri</h2>
+    <div class="form-2li">
+      <div>
+        <label for="phone">Telefon</label>
+        <input type="text" id="phone" name="phone" value="<%= settings.phone %>" maxlength="30">
+      </div>
+      <div>
+        <label for="email">E-posta</label>
+        <input type="email" id="email" name="email" value="<%= settings.email %>" maxlength="100">
+      </div>
+    </div>
+    <label for="address">Adres</label>
+    <input type="text" id="address" name="address" value="<%= settings.address %>" maxlength="250">
+    <label for="workingHours">Çalışma Saatleri</label>
+    <input type="text" id="workingHours" name="workingHours" value="<%= settings.workingHours %>" maxlength="150">
+    <label for="mapEmbed">Google Haritalar Gömme Kodu (iframe)</label>
+    <p class="ipucu">Google Haritalar &gt; Paylaş &gt; Harita yerleştir bölümündeki iframe kodunu yapıştırın.</p>
+    <textarea id="mapEmbed" name="mapEmbed" rows="3"><%= settings.mapEmbed %></textarea>
+  </div>
+
+  <div class="kutu">
+    <h2>Sosyal Medya</h2>
+    <label for="facebook">Facebook Adresi</label>
+    <input type="text" id="facebook" name="facebook" value="<%= settings.facebook %>" placeholder="https://facebook.com/...">
+    <label for="instagram">Instagram Adresi</label>
+    <input type="text" id="instagram" name="instagram" value="<%= settings.instagram %>" placeholder="https://instagram.com/...">
+    <label for="youtube">YouTube Adresi</label>
+    <input type="text" id="youtube" name="youtube" value="<%= settings.youtube %>" placeholder="https://youtube.com/...">
+  </div>
+
+  <div class="kutu">
+    <h2>Yönetici Hesabı</h2>
+    <label for="adminUsername">Kullanıcı Adı</label>
+    <input type="text" id="adminUsername" name="adminUsername" value="<%= settings.admin.username %>" maxlength="50">
+    <div class="form-2li">
+      <div>
+        <label for="currentPassword">Mevcut Şifre</label>
+        <input type="password" id="currentPassword" name="currentPassword" autocomplete="current-password">
+      </div>
+      <div></div>
+      <div>
+        <label for="newPassword">Yeni Şifre (en az 8 karakter)</label>
+        <input type="password" id="newPassword" name="newPassword" autocomplete="new-password">
+      </div>
+      <div>
+        <label for="newPasswordRepeat">Yeni Şifre (tekrar)</label>
+        <input type="password" id="newPasswordRepeat" name="newPasswordRepeat" autocomplete="new-password">
+      </div>
+    </div>
+    <p class="ipucu">Şifre değiştirmek istemiyorsanız bu alanları boş bırakın.</p>
+  </div>
+
+  <button type="submit" class="btn btn-sari">💾 Tüm Ayarları Kaydet</button>
+</form>
+
+<%- include('partials/alt') %>

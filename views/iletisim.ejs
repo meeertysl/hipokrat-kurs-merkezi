@@ -1,0 +1,91 @@
+<%- include('partials/header', { pageTitle: 'Bize Ulaşın' }) %>
+
+  <div class="sayfa-basligi">
+    <div class="container">
+      <h1>Bize Ulaşın</h1>
+      <div class="cizgi"></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="iletisim-grid">
+        <div class="iletisim-bilgi">
+          <h3>İletişim Bilgilerimiz</h3>
+          <% if (settings.address) { %>
+          <div class="satir">
+            <div class="ikon">📍</div>
+            <div><strong>Adres</strong><span><%= settings.address %></span></div>
+          </div>
+          <% } %>
+          <% if (settings.phone) { %>
+          <div class="satir">
+            <div class="ikon">📞</div>
+            <div><strong>Telefon</strong><span><a href="tel:<%= settings.phone.replace(/[^+0-9]/g, '') %>"><%= settings.phone %></a></span></div>
+          </div>
+          <% } %>
+          <% if (settings.email) { %>
+          <div class="satir">
+            <div class="ikon">✉️</div>
+            <div><strong>E-posta</strong><span><a href="mailto:<%= settings.email %>"><%= settings.email %></a></span></div>
+          </div>
+          <% } %>
+          <% if (settings.workingHours) { %>
+          <div class="satir">
+            <div class="ikon">🕐</div>
+            <div><strong>Çalışma Saatleri</strong><span><%= settings.workingHours %></span></div>
+          </div>
+          <% } %>
+          <% if (settings.facebook || settings.instagram || settings.youtube) { %>
+          <div class="sosyal">
+            <% if (settings.facebook) { %><a href="<%= settings.facebook %>" target="_blank" rel="noopener" title="Facebook">f</a><% } %>
+            <% if (settings.instagram) { %><a href="<%= settings.instagram %>" target="_blank" rel="noopener" title="Instagram">ig</a><% } %>
+            <% if (settings.youtube) { %><a href="<%= settings.youtube %>" target="_blank" rel="noopener" title="YouTube">▶</a><% } %>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="form-kutu">
+          <% if (sent) { %>
+            <div class="uyari basari">✅ Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.</div>
+          <% } %>
+          <% if (error) { %>
+            <div class="uyari hata">⚠️ <%= error %></div>
+          <% } %>
+          <form method="POST" action="/iletisim">
+            <div class="form-grid">
+              <div>
+                <label for="name">Adınız Soyadınız *</label>
+                <input type="text" id="name" name="name" required maxlength="100" value="<%= form.name || '' %>">
+              </div>
+              <div>
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" maxlength="30" value="<%= form.phone || '' %>">
+              </div>
+              <div>
+                <label for="email">E-posta</label>
+                <input type="email" id="email" name="email" maxlength="100" value="<%= form.email || '' %>">
+              </div>
+              <div>
+                <label for="subject">Konu</label>
+                <input type="text" id="subject" name="subject" maxlength="150" value="<%= form.subject || '' %>">
+              </div>
+              <div class="tam">
+                <label for="message">Mesajınız *</label>
+                <textarea id="message" name="message" required maxlength="3000"><%= form.message || '' %></textarea>
+              </div>
+              <div class="tam">
+                <button type="submit" class="btn btn-primary">Mesajı Gönder</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <% if (settings.mapEmbed) { %>
+      <div class="harita"><%- settings.mapEmbed %></div>
+      <% } %>
+    </div>
+  </section>
+
+<%- include('partials/footer') %>

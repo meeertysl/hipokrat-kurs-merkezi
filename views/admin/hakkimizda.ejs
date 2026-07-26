@@ -1,0 +1,34 @@
+<%- include('partials/ust', { pageTitle: 'Hakkımızda Düzenle' }) %>
+
+<div class="icerik-baslik">
+  <h1>📝 Hakkımızda Sayfasını Düzenle</h1>
+</div>
+
+<% if (saved) { %><div class="uyari basari">✅ Değişiklikler kaydedildi.</div><% } %>
+
+<div class="kutu">
+  <form method="POST" action="/admin/hakkimizda">
+    <label for="title">Sayfa Başlığı</label>
+    <input type="text" id="title" name="title" maxlength="100" value="<%= about.title || '' %>">
+
+    <label for="content">İçerik</label>
+    <p class="ipucu">Paragraf oluşturmak için arada bir boş satır bırakın.</p>
+    <textarea id="content" name="content" rows="12" style="min-height:260px;"><%= about.content || '' %></textarea>
+
+    <div class="form-2li">
+      <div>
+        <label for="mission">Misyonumuz</label>
+        <textarea id="mission" name="mission" rows="4"><%= about.mission || '' %></textarea>
+      </div>
+      <div>
+        <label for="vision">Vizyonumuz</label>
+        <textarea id="vision" name="vision" rows="4"><%= about.vision || '' %></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-sari">💾 Kaydet</button>
+    <a href="/hakkimizda" target="_blank" class="btn btn-gri" style="margin-left:8px;">Sayfayı Görüntüle</a>
+  </form>
+</div>
+
+<%- include('partials/alt') %>

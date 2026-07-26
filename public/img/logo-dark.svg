@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-label="Hipokrat Eğitim ve Danışmanlık ve Kütüphane">
+  <style>
+    .word { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 96px; letter-spacing: 2px; }
+    .sub  { font-family: Arial, sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 3px; }
+  </style>
+  <text x="0" y="100" class="word" fill="#FFC400">H</text>
+  <text x="86" y="100" class="word" fill="#FFC400">İ</text>
+  <text x="122" y="100" class="word" fill="#FFC400">P</text>
+  <g transform="translate(243,58)">
+    <circle cx="0" cy="0" r="52" fill="#FFC400"/>
+    <circle cx="0" cy="0" r="41" fill="none" stroke="#54565A" stroke-width="5"/>
+    <rect x="-21" y="-30" width="11" height="26" rx="5" fill="#54565A"/>
+    <rect x="-21" y="4" width="11" height="26" rx="5" fill="#54565A"/>
+    <rect x="10" y="-30" width="11" height="26" rx="5" fill="#54565A"/>
+    <rect x="10" y="4" width="11" height="26" rx="5" fill="#54565A"/>
+    <rect x="-6" y="-30" width="12" height="60" rx="5" fill="#54565A"/>
+    <rect x="-62" y="-4" width="124" height="8" rx="4" fill="#FFC400" transform="rotate(-18)"/>
+  </g>
+  <text x="310" y="100" class="word" fill="#FFC400">KRAT</text>
+  <rect x="2" y="118" width="700" height="7" rx="3" fill="#FFC400"/>
+  <text x="352" y="172" text-anchor="middle" class="sub" fill="#FFFFFF">EĞİTİM &amp; DANIŞMANLIK VE KÜTÜPHANE</text>
+</svg>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yönetici Girişi | <%= settings.siteTitle %></title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="giris-sayfa">
+    <div class="giris-kutu">
+      <img src="<%= settings.logo %>" alt="<%= settings.siteTitle %>">
+      <h1>Yönetici Girişi</h1>
+      <% if (error) { %><div class="uyari hata"><%= error %></div><% } %>
+      <form method="POST" action="/admin/giris">
+        <label for="username">Kullanıcı Adı</label>
+        <input type="text" id="username" name="username" required autofocus autocomplete="username">
+        <label for="password">Şifre</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password">
+        <button type="submit" class="btn btn-sari" style="width:100%;">Giriş Yap</button>
+      </form>
+      <p style="text-align:center;margin-top:18px;font-size:0.85rem;"><a href="/" style="color:#54565a;">← Siteye Dön</a></p>
+    </div>
+  </div>
+</body>
+</html>

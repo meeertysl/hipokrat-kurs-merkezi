@@ -1,0 +1,38 @@
+  <footer>
+    <div class="footer-ust">
+      <div class="container footer-grid">
+        <div>
+          <img src="/img/logo-dark.svg" alt="<%= settings.siteTitle %>">
+          <p style="font-size:0.93rem;"><%= settings.siteTitle %> — <%= settings.slogan %>. Elazığ'da öğrencilerimizin başarısı için çalışıyoruz.</p>
+        </div>
+        <div>
+          <h4>Hızlı Bağlantılar</h4>
+          <ul>
+            <li><a href="/">Ana Sayfa</a></li>
+            <li><a href="/hakkimizda">Hakkımızda</a></li>
+            <li><a href="/galeri">Galeri</a></li>
+            <li><a href="/iletisim">Bize Ulaşın</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>İletişim</h4>
+          <ul>
+            <% if (settings.address) { %><li>📍 <%= settings.address %></li><% } %>
+            <% if (settings.phone) { %><li>📞 <a href="tel:<%= settings.phone.replace(/[^+0-9]/g, '') %>"><%= settings.phone %></a></li><% } %>
+            <% if (settings.email) { %><li>✉️ <a href="mailto:<%= settings.email %>"><%= settings.email %></a></li><% } %>
+            <% if (settings.workingHours) { %><li>🕐 <%= settings.workingHours %></li><% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-alt">
+      <div class="container">
+        © <%= new Date().getFullYear() %> <%= settings.siteTitle %> - Elazığ. Tüm hakları saklıdır.
+        <span style="margin:0 6px;">|</span>
+        <a href="/admin/giris">Yönetici Girişi</a>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>

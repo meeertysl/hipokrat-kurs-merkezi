@@ -1,0 +1,38 @@
+<%- include('partials/ust', { pageTitle: 'Gelen Mesajlar' }) %>
+
+<div class="icerik-baslik">
+  <h1>💬 Gelen Mesajlar (<%= messages.length %>)</h1>
+</div>
+
+<% if (messages.length) { %>
+  <% messages.forEach(function (m) { %>
+    <div class="mesaj <%= m.read ? '' : 'yeni' %>">
+      <div class="mesaj-ust">
+        <div><strong><%= m.name %></strong> <% if (!m.read) { %><span class="rozet">YENİ</span><% } %></div>
+        <div class="tarih"><%= new Date(m.date).toLocaleString('tr-TR') %></div>
+      </div>
+      <% if (m.subject) { %><div class="konu">Konu: <%= m.subject %></div><% } %>
+      <div class="icerik-metin"><%= m.message %></div>
+      <div class="iletisim-detay">
+        <% if (m.email) { %>✉️ <a href="mailto:<%= m.email %>" style="color:#54565a;"><%= m.email %></a><% } %>
+        <% if (m.phone) { %> &nbsp;📞 <a href="tel:<%= m.phone.replace(/[^+0-9]/g, '') %>" style="color:#54565a;"><%= m.phone %></a><% } %>
+      </div>
+      <div class="mesaj-butonlar">
+        <% if (!m.read) { %>
+        <form method="POST" action="/admin/mesajlar/<%= m.id %>/oku">
+          <button type="submit" class="btn btn-gri btn-kucuk">✔ Okundu İşaretle</button>
+        </form>
+        <% } %>
+        <form method="POST" action="/admin/mesajlar/<%= m.id %>/sil" onsubmit="return confirm('Bu mesaj kalıcı olarak silinecek. Emin misiniz?');">
+          <button type="submit" class="btn btn-kirmizi btn-kucuk">🗑 Sil</button>
+        </form>
+      </div>
+    </div>
+  <% }) %>
+<% } else { %>
+  <div class="kutu">
+    <p style="color:#8a8c90;">Henüz mesaj yok. Ziyaretçilerin "Bize Ulaşın" formundan gönderdiği mesajlar burada listelenecek.</p>
+  </div>
+<% } %>
+
+<%- include('partials/alt') %>

@@ -1,0 +1,46 @@
+<%- include('partials/ust', { pageTitle: 'Genel Bakış' }) %>
+
+<div class="icerik-baslik">
+  <h1>👋 Hoş geldiniz</h1>
+  <a href="/" target="_blank" class="btn btn-gri btn-kucuk">Siteyi Görüntüle</a>
+</div>
+
+<div class="istatistikler">
+  <div class="istat">
+    <div class="sayi"><%= stats.totalMessages %></div>
+    <div class="etiket">Toplam Mesaj</div>
+  </div>
+  <div class="istat">
+    <div class="sayi"><%= stats.unreadMessages %></div>
+    <div class="etiket">Okunmamış Mesaj</div>
+  </div>
+  <div class="istat">
+    <div class="sayi"><%= stats.images %></div>
+    <div class="etiket">Galeri Fotoğrafı</div>
+  </div>
+  <div class="istat">
+    <div class="sayi"><%= stats.videos %></div>
+    <div class="etiket">Galeri Videosu</div>
+  </div>
+</div>
+
+<div class="kutu">
+  <h2>Son Gelen Mesajlar</h2>
+  <% if (recentMessages.length) { %>
+    <% recentMessages.forEach(function (m) { %>
+      <div class="mesaj <%= m.read ? '' : 'yeni' %>">
+        <div class="mesaj-ust">
+          <div><strong><%= m.name %></strong> <% if (!m.read) { %><span class="rozet">YENİ</span><% } %></div>
+          <div class="tarih"><%= new Date(m.date).toLocaleString('tr-TR') %></div>
+        </div>
+        <% if (m.subject) { %><div class="konu"><%= m.subject %></div><% } %>
+        <div class="icerik-metin"><%= m.message.length > 200 ? m.message.slice(0, 200) + '…' : m.message %></div>
+      </div>
+    <% }) %>
+    <a href="/admin/mesajlar" class="btn btn-sari btn-kucuk">Tüm Mesajları Gör</a>
+  <% } else { %>
+    <p style="color:#8a8c90;">Henüz mesaj yok. "Bize Ulaşın" formundan gelen mesajlar burada görünecek.</p>
+  <% } %>
+</div>
+
+<%- include('partials/alt') %>

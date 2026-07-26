@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' | ' : '' %><%= settings.siteTitle %> - Elazığ</title>
+  <meta name="description" content="<%= settings.siteTitle %> Elazığ - <%= settings.slogan %>. TYT, AYT, LGS kursları, eğitim koçluğu ve kütüphane hizmetleri.">
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div>
+        <% if (settings.phone) { %>📞 <a href="tel:<%= settings.phone.replace(/[^+0-9]/g, '') %>"><%= settings.phone %></a><% } %>
+        <% if (settings.email) { %><span class="sep">|</span>✉️ <a href="mailto:<%= settings.email %>"><%= settings.email %></a><% } %>
+      </div>
+      <div><%= settings.workingHours %></div>
+    </div>
+  </div>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="brand"><img src="<%= settings.logo %>" alt="<%= settings.siteTitle %>"></a>
+      <button class="nav-toggle" aria-label="Menüyü aç/kapat">☰</button>
+      <ul class="nav-links">
+        <li><a href="/" class="<%= path === '/' ? 'active' : '' %>">Ana Sayfa</a></li>
+        <li><a href="/hakkimizda" class="<%= path === '/hakkimizda' ? 'active' : '' %>">Hakkımızda</a></li>
+        <li><a href="/galeri" class="<%= path === '/galeri' ? 'active' : '' %>">Galeri</a></li>
+        <li><a href="/iletisim" class="btn-nav">Bize Ulaşın</a></li>
+        <% if (isAdmin) { %><li><a href="/admin">⚙️ Panel</a></li><% } %>
+      </ul>
+    </div>
+  </nav>

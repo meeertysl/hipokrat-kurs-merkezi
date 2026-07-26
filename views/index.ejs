@@ -1,0 +1,102 @@
+<%- include('partials/header', { pageTitle: undefined }) %>
+
+  <section class="hero">
+    <div class="container">
+      <img src="/img/logo-dark.svg" alt="<%= settings.siteTitle %>" class="hero-logo">
+      <h1><span><%= settings.siteTitle %></span></h1>
+      <div class="slogan"><%= settings.slogan %></div>
+      <p class="lead"><%= settings.heroText %></p>
+      <div class="hero-buttons">
+        <a href="/iletisim" class="btn btn-primary">Bize Ulaşın</a>
+        <a href="/hakkimizda" class="btn btn-outline">Bizi Tanıyın</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Neler Sunuyoruz?</h2>
+        <div class="cizgi"></div>
+        <p>Eğitim, danışmanlık ve kütüphane hizmetlerimizle her zaman yanınızdayız.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="ikon">🎓</div>
+          <h3>Eğitim</h3>
+          <p>TYT, AYT, LGS ve okula destek kurslarımızla alanında uzman öğretmen kadromuz eşliğinde hedeflerinize ulaşın.</p>
+        </div>
+        <div class="card">
+          <div class="ikon">🧭</div>
+          <h3>Danışmanlık</h3>
+          <p>Birebir eğitim koçluğu, rehberlik ve tercih danışmanlığı ile her öğrencimizin gelişimini yakından takip ediyoruz.</p>
+        </div>
+        <div class="card">
+          <div class="ikon">📚</div>
+          <h3>Kütüphane</h3>
+          <p>Zengin kaynak arşivimiz ve sessiz, konforlu çalışma alanlarımızla verimli ders çalışma ortamı sunuyoruz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container about-grid">
+      <div>
+        <h2><%= about.title || 'Hakkımızda' %></h2>
+        <div class="cizgi"></div>
+        <% (about.content || '').split(/\n\s*\n/).slice(0, 2).forEach(function (p) { %>
+          <p><%= p %></p>
+        <% }) %>
+        <a href="/hakkimizda" class="btn btn-dark" style="margin-top:10px;">Devamını Oku</a>
+      </div>
+      <div>
+        <% if (about.mission) { %>
+        <div class="mv-box">
+          <h4>🎯 MİSYONUMUZ</h4>
+          <p><%= about.mission %></p>
+        </div>
+        <% } %>
+        <% if (about.vision) { %>
+        <div class="mv-box">
+          <h4>🌟 VİZYONUMUZ</h4>
+          <p><%= about.vision %></p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <% if (galleryPreview.length) { %>
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Galeriden Kareler</h2>
+        <div class="cizgi"></div>
+      </div>
+      <div class="galeri-grid">
+        <% galleryPreview.forEach(function (item) { %>
+          <div class="galeri-item" data-buyuk="<%= item.file %>">
+            <img src="<%= item.file %>" alt="<%= item.title || settings.siteTitle %>" loading="lazy">
+            <% if (item.title) { %><div class="baslik"><%= item.title %></div><% } %>
+          </div>
+        <% }) %>
+      </div>
+      <div style="text-align:center;margin-top:34px;">
+        <a href="/galeri" class="btn btn-dark">Tüm Galeriyi Gör</a>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="cta">
+    <div class="container">
+      <div>
+        <h2>Geleceğinize birlikte yön verelim!</h2>
+        <p>Kayıt ve detaylı bilgi için bizimle iletişime geçin.</p>
+      </div>
+      <a href="/iletisim" class="btn btn-dark">Hemen İletişime Geçin</a>
+    </div>
+  </section>
+
+<%- include('partials/footer') %>

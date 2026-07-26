@@ -1,0 +1,51 @@
+<%- include('partials/ust', { pageTitle: 'Galeri Yönetimi' }) %>
+
+<div class="icerik-baslik">
+  <h1>🖼️ Galeri Yönetimi</h1>
+  <a href="/galeri" target="_blank" class="btn btn-gri btn-kucuk">Galeriyi Görüntüle</a>
+</div>
+
+<% if (saved) { %><div class="uyari basari">✅ Dosya(lar) galeriye eklendi.</div><% } %>
+<% if (error) { %><div class="uyari hata">⚠️ <%= error %></div><% } %>
+
+<div class="kutu">
+  <h2>Yeni Fotoğraf / Video Ekle</h2>
+  <form method="POST" action="/admin/galeri" enctype="multipart/form-data">
+    <label for="media">Dosya Seç (birden fazla seçebilirsiniz)</label>
+    <p class="ipucu">Desteklenen türler: JPG, PNG, GIF, WEBP (fotoğraf) / MP4, WEBM (video). Tek seferde en fazla 10 dosya.</p>
+    <input type="file" id="media" name="media" accept="image/*,video/mp4,video/webm,video/ogg" multiple required>
+    <label for="title">Başlık (isteğe bağlı, tüm seçilen dosyalara uygulanır)</label>
+    <input type="text" id="title" name="title" maxlength="150" placeholder="Örn: Kütüphanemizden bir kare">
+    <button type="submit" class="btn btn-sari">⬆ Yükle</button>
+  </form>
+</div>
+
+<div class="kutu">
+  <h2>Mevcut İçerikler (<%= gallery.length %>)</h2>
+  <% if (gallery.length) { %>
+  <div class="galeri-yonetim">
+    <% gallery.forEach(function (item) { %>
+      <div class="galeri-oge">
+        <div class="medya">
+          <% if (item.type === 'video') { %>
+            <video src="<%= item.file %>" controls preload="metadata"></video>
+          <% } else { %>
+            <img src="<%= item.file %>" alt="<%= item.title || 'Galeri görseli' %>" loading="lazy">
+          <% } %>
+        </div>
+        <div class="bilgi">
+          <div class="ad"><%= item.title || '(başlıksız)' %></div>
+          <div class="tur"><%= item.type === 'video' ? '🎬 Video' : '📷 Fotoğraf' %> · <%= new Date(item.date).toLocaleDateString('tr-TR') %></div>
+          <form method="POST" action="/admin/galeri/<%= item.id %>/sil" onsubmit="return confirm('Bu içerik kalıcı olarak silinecek. Emin misiniz?');">
+            <button type="submit" class="btn btn-kirmizi btn-kucuk">🗑 Sil</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <% } else { %>
+  <p style="color:#8a8c90;">Galeri boş. Yukarıdaki formdan fotoğraf ve video ekleyebilirsiniz.</p>
+  <% } %>
+</div>
+
+<%- include('partials/alt') %>

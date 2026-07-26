@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %> | Yönetim Paneli - <%= settings.siteTitle %></title>
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="panel">
+    <aside class="kenar">
+      <div class="logo"><a href="/admin"><img src="/img/logo-dark.svg" alt="<%= settings.siteTitle %>"></a></div>
+      <nav>
+        <a href="/admin" class="<%= path === '/admin' ? 'aktif' : '' %>">📊 Genel Bakış</a>
+        <a href="/admin/hakkimizda" class="<%= path === '/admin/hakkimizda' ? 'aktif' : '' %>">📝 Hakkımızda</a>
+        <a href="/admin/mesajlar" class="<%= path === '/admin/mesajlar' ? 'aktif' : '' %>">💬 Gelen Mesajlar</a>
+        <a href="/admin/galeri" class="<%= path === '/admin/galeri' ? 'aktif' : '' %>">🖼️ Galeri</a>
+        <a href="/admin/ayarlar" class="<%= path === '/admin/ayarlar' ? 'aktif' : '' %>">⚙️ Ayarlar</a>
+      </nav>
+      <div class="alt">
+        <a href="/" target="_blank">🌐 Siteyi Görüntüle</a><br>
+        <a href="/admin/cikis">🚪 Çıkış Yap</a>
+      </div>
+    </aside>
+    <main class="icerik">
