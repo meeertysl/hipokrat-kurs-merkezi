@@ -129,6 +129,7 @@ const uploadLogo = multer({
 /* ---------- Uygulama ayarları ---------- */
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.set('trust proxy', 1); // Render/Railway gibi proxy arkasında çalışırken gerekli
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(

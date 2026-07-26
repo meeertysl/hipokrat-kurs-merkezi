@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Hipokrat Kurs Merkezi Elazığ - Eğitim & Danışmanlık ve Kütüphane resmi web sitesi",
   "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"
