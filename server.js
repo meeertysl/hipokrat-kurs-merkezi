@@ -74,7 +74,27 @@ if (!fs.existsSync(dataPath('about'))) {
 }
 if (!fs.existsSync(dataPath('messages'))) writeJson('messages', []);
 if (!fs.existsSync(dataPath('gallery'))) writeJson('gallery', []);
-if (!fs.existsSync(dataPath('reviews'))) writeJson('reviews', []);
+if (!fs.existsSync(dataPath('reviews'))) {
+  // Google Haritalar'daki gerçek yorumlardan aktarıldı (isimler gizlendi)
+  writeJson('reviews', [
+    {
+      id: crypto.randomUUID(),
+      name: 'F***',
+      rating: 5,
+      text: 'Sınav hazırlık sürecimde hipokrat kurs merkezi ile çalışmak en doğru kararlarımdan biri oldu. Müfredatı sınav formatına uygun bir şekilde takip etmeleri ve deneme sınavlarıyla süreci sürekli kılmaları motivasyonumu yüksek tuttu.',
+      timeAgo: 'bir ay önce',
+      date: new Date().toISOString()
+    },
+    {
+      id: crypto.randomUUID(),
+      name: 'A*** Ç***',
+      rating: 5,
+      text: 'Çok değerli Mehdet hoca ve deneyimli kadrosu ile bir yıl yoğun ve disiplinli bi çalışma süreci geçirik, hep yanımızda oldular destek oldular çok teşekkürler iyiki varsınız 🙏🙏🙏',
+      timeAgo: 'bir ay önce',
+      date: new Date().toISOString()
+    }
+  ]);
+}
 
 const settingsInit = readJson('settings', {});
 
