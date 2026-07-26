@@ -41,14 +41,17 @@ if (!fs.existsSync(dataPath('settings'))) {
     slogan: 'Eğitim & Danışmanlık ve Kütüphane',
     heroText:
       'Elazığ\'da TYT, AYT, LGS ve okula destek kurslarıyla öğrencilerimizi hedeflerine ulaştırıyoruz. Uzman kadromuz, birebir danışmanlık hizmetimiz ve zengin kütüphanemizle yanınızdayız.',
-    phone: '0 (424) 000 00 00',
+    phone: '0533 231 26 76',
     email: 'info@hipokratkurs.com',
-    address: 'Elazığ Merkez',
-    workingHours: 'Hafta içi 09:00 - 21:00 / Hafta sonu 09:00 - 18:00',
+    address: 'Çaydaçıra Mah. 4004. Sokak Çobanoğlu Sitesi No: 2B, 23050 Merkez/Elazığ',
+    workingHours: 'Her gün 08:00 - 21:00',
     facebook: '',
     instagram: '',
     youtube: '',
     mapEmbed: '',
+    googleRating: '5,0',
+    googleReviewsUrl:
+      'https://www.google.com/maps/place/Hipokrat+kurs+merkezi/@38.6750691,39.1743327,17z/data=!3m1!4b1!4m6!3m5!1s0x4076c1d3b248d9d1:0x19f0a889f3523c17!8m2!3d38.6750691!4d39.1743327!16s%2Fg%2F11wfvjz0qm',
     logo: '/img/logo.svg',
     sessionSecret: crypto.randomBytes(32).toString('hex'),
     admin: {
@@ -71,6 +74,7 @@ if (!fs.existsSync(dataPath('about'))) {
 }
 if (!fs.existsSync(dataPath('messages'))) writeJson('messages', []);
 if (!fs.existsSync(dataPath('gallery'))) writeJson('gallery', []);
+if (!fs.existsSync(dataPath('reviews'))) writeJson('reviews', []);
 
 const settingsInit = readJson('settings', {});
 
@@ -134,7 +138,8 @@ app.get('/', (req, res) => {
   const gallery = readJson('gallery', []);
   res.render('index', {
     about: readJson('about', {}),
-    galleryPreview: gallery.filter((g) => g.type === 'image').slice(0, 6)
+    galleryPreview: gallery.filter((g) => g.type === 'image').slice(0, 6),
+    reviews: readJson('reviews', [])
   });
 });
 
@@ -293,6 +298,42 @@ app.post('/admin/galeri/:id/sil', requireAdmin, (req, res) => {
   res.redirect('/admin/galeri');
 });
 
+/* ----- Google yorumları yönetimi ----- */
+app.get('/admin/yorumlar', requireAdmin, (req, res) => {
+  res.render('admin/yorumlar', {
+    reviews: readJson('reviews', []),
+    saved: req.query.ok === '1',
+    error: req.query.hata || null
+  });
+});
+
+app.post('/admin/yorumlar', requireAdmin, (req, res) => {
+  const { name, rating, text, timeAgo } = req.body;
+  if (!name || !name.trim() || !text || !text.trim()) {
+    return res.redirect(
+      '/admin/yorumlar?hata=' + encodeURIComponent('İsim ve yorum metni zorunludur.')
+    );
+  }
+  const ratingNum = Math.min(5, Math.max(1, parseInt(rating, 10) || 5));
+  const reviews = readJson('reviews', []);
+  reviews.unshift({
+    id: crypto.randomUUID(),
+    name: name.trim().slice(0, 80),
+    rating: ratingNum,
+    text: text.trim().slice(0, 1000),
+    timeAgo: (timeAgo || '').trim().slice(0, 40),
+    date: new Date().toISOString()
+  });
+  writeJson('reviews', reviews);
+  res.redirect('/admin/yorumlar?ok=1');
+});
+
+app.post('/admin/yorumlar/:id/sil', requireAdmin, (req, res) => {
+  const reviews = readJson('reviews', []).filter((r) => r.id !== req.params.id);
+  writeJson('reviews', reviews);
+  res.redirect('/admin/yorumlar');
+});
+
 /* ----- Sistem ayarları ----- */
 app.get('/admin/ayarlar', requireAdmin, (req, res) => {
   res.render('admin/ayarlar', {
@@ -307,7 +348,8 @@ app.post('/admin/ayarlar', requireAdmin, (req, res) => {
     const settings = readJson('settings', {});
     const fields = [
       'siteTitle', 'slogan', 'heroText', 'phone', 'email',
-      'address', 'workingHours', 'facebook', 'instagram', 'youtube', 'mapEmbed'
+      'address', 'workingHours', 'facebook', 'instagram', 'youtube', 'mapEmbed',
+      'googleRating', 'googleReviewsUrl'
     ];
     for (const f of fields) {
       if (typeof req.body[f] === 'string') settings[f] = req.body[f].trim();

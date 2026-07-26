@@ -51,6 +51,21 @@
   </div>
 
   <div class="kutu">
+    <h2>Google Yorumları</h2>
+    <div class="form-2li">
+      <div>
+        <label for="googleRating">Google Puanı</label>
+        <input type="text" id="googleRating" name="googleRating" value="<%= settings.googleRating || '' %>" maxlength="5" placeholder="Örn: 5,0">
+      </div>
+      <div>
+        <label for="googleReviewsUrl">Google Haritalar Bağlantısı</label>
+        <input type="text" id="googleReviewsUrl" name="googleReviewsUrl" value="<%= settings.googleReviewsUrl || '' %>" placeholder="https://www.google.com/maps/place/...">
+      </div>
+    </div>
+    <p class="ipucu">Yorum metinleri <a href="/admin/yorumlar">Yorumlar</a> sayfasından yönetilir.</p>
+  </div>
+
+  <div class="kutu">
     <h2>Sosyal Medya</h2>
     <label for="facebook">Facebook Adresi</label>
     <input type="text" id="facebook" name="facebook" value="<%= settings.facebook %>" placeholder="https://facebook.com/...">

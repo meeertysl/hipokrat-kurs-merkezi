@@ -2,12 +2,12 @@
 
   <section class="hero">
     <div class="container">
-      <img src="/img/logo-dark.svg" alt="<%= settings.siteTitle %>" class="hero-logo">
-      <h1><span><%= settings.siteTitle %></span></h1>
-      <div class="slogan"><%= settings.slogan %></div>
-      <p class="lead"><%= settings.heroText %></p>
-      <div class="hero-buttons">
-        <a href="/iletisim" class="btn btn-primary">Bize Ulaşın</a>
+      <img src="/img/logo-dark.svg" alt="<%= settings.siteTitle %>" class="hero-logo giris-anim">
+      <h1 class="giris-anim gecikme-1"><span><%= settings.siteTitle %></span></h1>
+      <div class="slogan giris-anim gecikme-2"><%= settings.slogan %></div>
+      <p class="lead giris-anim gecikme-3"><%= settings.heroText %></p>
+      <div class="hero-buttons giris-anim gecikme-4">
+        <a href="/iletisim" class="btn btn-primary parla">Bize Ulaşın</a>
         <a href="/hakkimizda" class="btn btn-outline">Bizi Tanıyın</a>
       </div>
     </div>
@@ -15,23 +15,23 @@
 
   <section class="section">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
         <h2>Neler Sunuyoruz?</h2>
         <div class="cizgi"></div>
         <p>Eğitim, danışmanlık ve kütüphane hizmetlerimizle her zaman yanınızdayız.</p>
       </div>
       <div class="cards">
-        <div class="card">
+        <div class="card reveal">
           <div class="ikon">🎓</div>
           <h3>Eğitim</h3>
           <p>TYT, AYT, LGS ve okula destek kurslarımızla alanında uzman öğretmen kadromuz eşliğinde hedeflerinize ulaşın.</p>
         </div>
-        <div class="card">
+        <div class="card reveal gecikme-1">
           <div class="ikon">🧭</div>
           <h3>Danışmanlık</h3>
           <p>Birebir eğitim koçluğu, rehberlik ve tercih danışmanlığı ile her öğrencimizin gelişimini yakından takip ediyoruz.</p>
         </div>
-        <div class="card">
+        <div class="card reveal gecikme-2">
           <div class="ikon">📚</div>
           <h3>Kütüphane</h3>
           <p>Zengin kaynak arşivimiz ve sessiz, konforlu çalışma alanlarımızla verimli ders çalışma ortamı sunuyoruz.</p>
@@ -42,7 +42,7 @@
 
   <section class="section alt">
     <div class="container about-grid">
-      <div>
+      <div class="reveal">
         <h2><%= about.title || 'Hakkımızda' %></h2>
         <div class="cizgi"></div>
         <% (about.content || '').split(/\n\s*\n/).slice(0, 2).forEach(function (p) { %>
@@ -50,7 +50,7 @@
         <% }) %>
         <a href="/hakkimizda" class="btn btn-dark" style="margin-top:10px;">Devamını Oku</a>
       </div>
-      <div>
+      <div class="reveal gecikme-1">
         <% if (about.mission) { %>
         <div class="mv-box">
           <h4>🎯 MİSYONUMUZ</h4>
@@ -70,13 +70,13 @@
   <% if (galleryPreview.length) { %>
   <section class="section">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
         <h2>Galeriden Kareler</h2>
         <div class="cizgi"></div>
       </div>
       <div class="galeri-grid">
-        <% galleryPreview.forEach(function (item) { %>
-          <div class="galeri-item" data-buyuk="<%= item.file %>">
+        <% galleryPreview.forEach(function (item, i) { %>
+          <div class="galeri-item reveal gecikme-<%= i % 3 %>" data-buyuk="<%= item.file %>">
             <img src="<%= item.file %>" alt="<%= item.title || settings.siteTitle %>" loading="lazy">
             <% if (item.title) { %><div class="baslik"><%= item.title %></div><% } %>
           </div>
@@ -89,13 +89,60 @@
   </section>
   <% } %>
 
+  <% if (reviews.length || settings.googleReviewsUrl) { %>
+  <section class="section alt yorumlar-bolumu">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Bizim İçin Ne Dediler?</h2>
+        <div class="cizgi"></div>
+        <% if (settings.googleRating) { %>
+        <div class="google-rozet">
+          <span class="g-logo" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span>
+          <span class="puan"><%= settings.googleRating %></span>
+          <span class="yildizlar" aria-label="<%= settings.googleRating %> yıldız">★★★★★</span>
+          <span class="alt-metin">Google değerlendirmesi</span>
+        </div>
+        <% } %>
+      </div>
+      <% if (reviews.length) { %>
+      <div class="yorum-kaydirici reveal" data-yorum-kaydirici>
+        <div class="yorum-serit">
+          <% reviews.forEach(function (r) { %>
+            <div class="yorum-kart">
+              <div class="yorum-ust">
+                <div class="avatar" aria-hidden="true"><%= r.name.trim().charAt(0).toUpperCase() %></div>
+                <div>
+                  <div class="isim"><%= r.name %></div>
+                  <% if (r.timeAgo) { %><div class="zaman"><%= r.timeAgo %></div><% } %>
+                </div>
+                <div class="g-ikon" aria-hidden="true">G</div>
+              </div>
+              <div class="yorum-yildiz" aria-label="<%= r.rating %> yıldız"><%
+                %><% for (let i = 0; i < 5; i++) { %><span class="<%= i < r.rating ? 'dolu' : '' %>">★</span><% } %>
+              </div>
+              <p class="yorum-metin"><%= r.text %></p>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+      <% } %>
+      <% if (settings.googleReviewsUrl) { %>
+      <div class="yorum-butonlar reveal">
+        <a href="<%= settings.googleReviewsUrl %>" target="_blank" rel="noopener" class="btn btn-dark">Google'da Tüm Yorumları Gör</a>
+        <a href="<%= settings.googleReviewsUrl %>" target="_blank" rel="noopener" class="btn btn-primary">⭐ Bizi Değerlendirin</a>
+      </div>
+      <% } %>
+    </div>
+  </section>
+  <% } %>
+
   <section class="cta">
     <div class="container">
-      <div>
+      <div class="reveal">
         <h2>Geleceğinize birlikte yön verelim!</h2>
         <p>Kayıt ve detaylı bilgi için bizimle iletişime geçin.</p>
       </div>
-      <a href="/iletisim" class="btn btn-dark">Hemen İletişime Geçin</a>
+      <a href="/iletisim" class="btn btn-dark reveal">Hemen İletişime Geçin</a>
     </div>
   </section>
 

@@ -1,0 +1,63 @@
+<%- include('partials/ust', { pageTitle: 'Google Yorumları' }) %>
+
+<div class="icerik-baslik">
+  <h1>⭐ Google Yorumları</h1>
+  <% if (settings.googleReviewsUrl) { %>
+  <a href="<%= settings.googleReviewsUrl %>" target="_blank" class="btn btn-gri btn-kucuk">Google'daki Yorumlara Git</a>
+  <% } %>
+</div>
+
+<% if (saved) { %><div class="uyari basari">✅ Yorum eklendi.</div><% } %>
+<% if (error) { %><div class="uyari hata">⚠️ <%= error %></div><% } %>
+
+<div class="kutu">
+  <h2>Yeni Yorum Ekle</h2>
+  <p class="ipucu">Google Haritalar'daki gerçek yorumlarınızı buraya aktarın; ana sayfadaki "Bizim İçin Ne Dediler?" bölümünde görünürler. Google puanı ve yorum bağlantısı <a href="/admin/ayarlar">Ayarlar</a> sayfasından düzenlenir.</p>
+  <form method="POST" action="/admin/yorumlar">
+    <div class="form-2li">
+      <div>
+        <label for="name">Yorumu Yazan Kişi *</label>
+        <input type="text" id="name" name="name" required maxlength="80" placeholder="Örn: Ayşe K.">
+      </div>
+      <div>
+        <label for="rating">Yıldız</label>
+        <select id="rating" name="rating">
+          <option value="5" selected>★★★★★ (5)</option>
+          <option value="4">★★★★ (4)</option>
+          <option value="3">★★★ (3)</option>
+          <option value="2">★★ (2)</option>
+          <option value="1">★ (1)</option>
+        </select>
+      </div>
+    </div>
+    <label for="timeAgo">Zaman Etiketi (isteğe bağlı)</label>
+    <input type="text" id="timeAgo" name="timeAgo" maxlength="40" placeholder="Örn: 2 ay önce">
+    <label for="text">Yorum Metni *</label>
+    <textarea id="text" name="text" required maxlength="1000" rows="4" placeholder="Google'daki yorumun metnini buraya yapıştırın"></textarea>
+    <button type="submit" class="btn btn-sari">➕ Yorumu Ekle</button>
+  </form>
+</div>
+
+<div class="kutu">
+  <h2>Mevcut Yorumlar (<%= reviews.length %>)</h2>
+  <% if (reviews.length) { %>
+    <% reviews.forEach(function (r) { %>
+      <div class="mesaj">
+        <div class="mesaj-ust">
+          <div><strong><%= r.name %></strong> <span style="color:#f5b301;letter-spacing:2px;"><% for (let i = 0; i < r.rating; i++) { %>★<% } %></span></div>
+          <div class="tarih"><%= r.timeAgo || new Date(r.date).toLocaleDateString('tr-TR') %></div>
+        </div>
+        <div class="icerik-metin"><%= r.text %></div>
+        <div class="mesaj-butonlar">
+          <form method="POST" action="/admin/yorumlar/<%= r.id %>/sil" onsubmit="return confirm('Bu yorum silinecek. Emin misiniz?');">
+            <button type="submit" class="btn btn-kirmizi btn-kucuk">🗑 Sil</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p style="color:#8a8c90;">Henüz yorum eklenmedi. Yukarıdaki formla Google yorumlarınızı ekleyin.</p>
+  <% } %>
+</div>
+
+<%- include('partials/alt') %>

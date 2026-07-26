@@ -9,12 +9,12 @@
 
   <section class="section">
     <div class="container about-grid">
-      <div>
+      <div class="reveal">
         <% (about.content || '').split(/\n\s*\n/).forEach(function (p) { %>
           <p><%= p %></p>
         <% }) %>
       </div>
-      <div>
+      <div class="reveal gecikme-1">
         <% if (about.mission) { %>
         <div class="mv-box">
           <h4>🎯 MİSYONUMUZ</h4>

@@ -15,8 +15,8 @@
       </div>
       <% if (images.length) { %>
       <div class="galeri-grid">
-        <% images.forEach(function (item) { %>
-          <div class="galeri-item" data-buyuk="<%= item.file %>">
+        <% images.forEach(function (item, i) { %>
+          <div class="galeri-item reveal gecikme-<%= i % 3 %>" data-buyuk="<%= item.file %>">
             <img src="<%= item.file %>" alt="<%= item.title || settings.siteTitle %>" loading="lazy">
             <% if (item.title) { %><div class="baslik"><%= item.title %></div><% } %>
           </div>
@@ -36,8 +36,8 @@
       </div>
       <% if (videos.length) { %>
       <div class="galeri-grid">
-        <% videos.forEach(function (item) { %>
-          <div class="galeri-item" style="cursor:default;">
+        <% videos.forEach(function (item, i) { %>
+          <div class="galeri-item reveal gecikme-<%= i % 3 %>" style="cursor:default;">
             <video src="<%= item.file %>" controls preload="metadata"></video>
             <% if (item.title) { %><div class="baslik" style="pointer-events:none;"><%= item.title %></div><% } %>
           </div>

@@ -379,6 +379,181 @@ footer { background: var(--gri-koyu); color: #cfcfd2; }
 .sayfa-basligi h1 { font-size: 2.2rem; }
 .sayfa-basligi .cizgi { width: 70px; height: 5px; border-radius: 3px; background: var(--sari); margin: 14px auto 0; }
 
+/* ---------- Google yorumları ---------- */
+.google-rozet {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  background: var(--beyaz);
+  border-radius: 999px;
+  padding: 10px 22px;
+  box-shadow: var(--golge);
+}
+.g-logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.5px; }
+.g-logo span:nth-child(1) { color: #4285f4; }
+.g-logo span:nth-child(2) { color: #ea4335; }
+.g-logo span:nth-child(3) { color: #fbbc05; }
+.g-logo span:nth-child(4) { color: #4285f4; }
+.g-logo span:nth-child(5) { color: #34a853; }
+.g-logo span:nth-child(6) { color: #ea4335; }
+.google-rozet .puan { font-size: 1.4rem; font-weight: 800; color: var(--gri-koyu); }
+.google-rozet .yildizlar { color: #f5b301; font-size: 1.1rem; letter-spacing: 2px; }
+.google-rozet .alt-metin { color: #8a8c90; font-size: 0.85rem; }
+
+.yorum-kaydirici { overflow: hidden; position: relative; margin: 0 -20px; padding: 10px 20px; }
+.yorum-kaydirici::before, .yorum-kaydirici::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.yorum-kaydirici::before { left: 0; background: linear-gradient(90deg, var(--gri-acik), transparent); }
+.yorum-kaydirici::after { right: 0; background: linear-gradient(-90deg, var(--gri-acik), transparent); }
+.yorum-serit {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: yorumAkis 40s linear infinite;
+}
+.yorum-kaydirici:hover .yorum-serit { animation-play-state: paused; }
+@keyframes yorumAkis {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.yorum-kart {
+  width: 330px;
+  flex-shrink: 0;
+  background: var(--beyaz);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--golge);
+  border: 1px solid #ececee;
+}
+.yorum-ust { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.yorum-ust .avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gri-koyu);
+  color: var(--sari);
+  font-weight: 800;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.yorum-ust .isim { font-weight: 700; color: var(--gri-koyu); font-size: 0.97rem; }
+.yorum-ust .zaman { font-size: 0.8rem; color: #8a8c90; }
+.yorum-ust .g-ikon {
+  margin-left: auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #e2e3e5;
+  color: #4285f4;
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yorum-yildiz { margin-bottom: 10px; letter-spacing: 2px; }
+.yorum-yildiz span { color: #dcdde0; }
+.yorum-yildiz span.dolu { color: #f5b301; }
+.yorum-metin {
+  color: #55575b;
+  font-size: 0.93rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.yorum-butonlar { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+
+/* ---------- Animasyonlar ---------- */
+/* Giriş (hero) animasyonları */
+.giris-anim {
+  opacity: 0;
+  transform: translateY(26px);
+  animation: girisYukari 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+.gecikme-1 { animation-delay: 0.15s; transition-delay: 0.12s; }
+.gecikme-2 { animation-delay: 0.3s; transition-delay: 0.24s; }
+.gecikme-3 { animation-delay: 0.45s; transition-delay: 0.36s; }
+.gecikme-4 { animation-delay: 0.6s; transition-delay: 0.48s; }
+@keyframes girisYukari {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Kaydırınca beliren öğeler */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: inherit;
+}
+.reveal.gorunur { opacity: 1; transform: translateY(0); }
+
+/* Başlık çizgisi büyüme */
+.section-title .cizgi, .about-grid .cizgi, .sayfa-basligi .cizgi {
+  transform-origin: center;
+  transition: transform 0.8s 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.reveal:not(.gorunur) .cizgi { transform: scaleX(0); }
+.reveal.gorunur .cizgi { transform: scaleX(1); }
+
+/* Hero yüzen daireler */
+.hero::after { animation: yuzen 9s ease-in-out infinite; }
+.hero::before { animation: yuzen 12s ease-in-out infinite reverse; }
+@keyframes yuzen {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-24px, 18px) scale(1.06); }
+}
+
+/* Buton parlama efekti */
+.btn { position: relative; overflow: hidden; }
+.btn.parla::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  animation: parla 3.2s ease-in-out infinite;
+}
+@keyframes parla {
+  0% { left: -80%; }
+  45%, 100% { left: 130%; }
+}
+
+/* Kart ikon sıçraması */
+.card:hover .ikon { animation: zipla 0.55s ease; }
+@keyframes zipla {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  70% { transform: translateY(2px); }
+}
+
+/* Navbar kaydırma gölgesi */
+.navbar { transition: box-shadow 0.3s; }
+.navbar.kaydirildi { box-shadow: 0 6px 24px rgba(63, 65, 68, 0.18); }
+
+/* Hareket azaltma tercihi */
+@media (prefers-reduced-motion: reduce) {
+  .giris-anim { animation: none; opacity: 1; transform: none; }
+  .reveal { transition: none; opacity: 1; transform: none; }
+  .reveal:not(.gorunur) .cizgi { transform: none; }
+  .yorum-serit { animation: none; flex-wrap: wrap; width: auto; }
+  .hero::after, .hero::before, .btn.parla::after { animation: none; }
+}
+
 /* ---------- Duyarlı tasarım ---------- */
 @media (max-width: 900px) {
   .cards, .galeri-grid { grid-template-columns: repeat(2, 1fr); }
